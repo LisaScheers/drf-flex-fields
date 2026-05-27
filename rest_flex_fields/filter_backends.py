@@ -4,7 +4,15 @@ from typing import Optional
 from django.core.exceptions import FieldDoesNotExist
 from django.db import models
 from django.db.models import QuerySet
-from rest_framework.compat import coreapi, coreschema
+try:
+    from rest_framework.compat import coreapi, coreschema
+except ImportError:
+    try:
+        import coreapi
+        import coreschema
+    except ImportError:
+        coreapi = None
+        coreschema = None
 from rest_framework.filters import BaseFilterBackend
 from rest_framework.request import Request
 from rest_framework.viewsets import GenericViewSet
